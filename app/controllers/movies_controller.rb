@@ -2,7 +2,21 @@
 class MoviesController < ApplicationController
 
   def index
-    @movies = Movie.all
+    @all_ratings = Movie.ratings
+    if params[:ratings] == nil and session[:ratings] == nil
+      session[:ratings] = @all_ratings
+    elsif params[:ratings] != nil
+      session[:ratings] = params[:ratings]
+    end      
+
+    if params[:sort] == nil and session[:sort] == nil
+      session[:sort] = "id"
+    elsif params[:sort] != nil
+      session[:sort] = params[:sort]
+    end 
+
+    @movies = Movie.where({:rating => session[:ratings].keys}).order(session[:sort])
+
   end
 
   def show
