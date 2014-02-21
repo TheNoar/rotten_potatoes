@@ -9,10 +9,10 @@
 %table#movies
   %thead
     %tr
-      %th
+      %th{class: session[:sort] == 'title' && 'hilite'}
         = link_to "Movie title", movies_path(:sort => "title" )
       %th Rating
-      %th
+      %th{class: session[:sort] == 'release_date' && 'hilite'}
         = link_to "Release Date", movies_path(:sort => "release_date")
       %th More Info
   %tbody

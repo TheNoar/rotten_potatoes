@@ -8,14 +8,13 @@ class MoviesController < ApplicationController
     elsif params[:ratings] != nil
       session[:ratings] = params[:ratings]
     end      
-
     if params[:sort] == nil and session[:sort] == nil
       session[:sort] = "id"
     elsif params[:sort] != nil
       session[:sort] = params[:sort]
     end 
 
-    @movies = Movie.where({:rating => session[:ratings].keys}).order(session[:sort])
+    @movies = Movie.sort_by(session[:ratings], session[:sort])
 
   end
 
